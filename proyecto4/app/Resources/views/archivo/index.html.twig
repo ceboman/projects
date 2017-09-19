@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Archivos list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idarchivo</th>
+                <th>Nombre</th>
+                <th>Usuariocreacion</th>
+                <th>Fechacreacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for archivo in archivos %}
+            <tr>
+                <td><a href="{{ path('archivo_show', { 'idArchivo': archivo.idArchivo }) }}">{{ archivo.idArchivo }}</a></td>
+                <td>{{ archivo.nombre }}</td>
+                <td>{{ archivo.usuarioCreacion }}</td>
+                <td>{% if archivo.fechaCreacion %}{{ archivo.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ archivo.usuarioActualizacion }}</td>
+                <td>{% if archivo.fechaActualizacion %}{{ archivo.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <!-- <a href="{{ path('archivo_show', { 'idArchivo': archivo.idArchivo }) }}">show</a> -->
+                            <a href="{{ asset('uploads/archivos/' ~ archivo.nombre) }}">Descargar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('archivo_edit', { 'idArchivo': archivo.idArchivo }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('archivo_new') }}">Create a new archivo</a>
+        </li>
+
+    </ul>
+{% endblock %}

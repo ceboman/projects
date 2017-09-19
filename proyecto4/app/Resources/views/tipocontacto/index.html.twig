@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tipocontactos list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idtipocontacto</th>
+                <th>Nombre</th>
+                <th>Usuariocreacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipoContacto in tipoContactos %}
+            <tr>
+                <td><a href="{{ path('tipocontacto_show', { 'idTipoContacto': tipoContacto.idTipoContacto }) }}">{{ tipoContacto.idTipoContacto }}</a></td>
+                <td>{{ tipoContacto.nombre }}</td>
+                <td>{{ tipoContacto.usuarioCreacion }}</td>
+                <td>{% if tipoContacto.fechaActualizacion %}{{ tipoContacto.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ tipoContacto.usuarioActualizacion }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('tipocontacto_show', { 'idTipoContacto': tipoContacto.idTipoContacto }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('tipocontacto_edit', { 'idTipoContacto': tipoContacto.idTipoContacto }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tipocontacto_new') }}">Create a new tipoContacto</a>
+        </li>
+    </ul>
+{% endblock %}

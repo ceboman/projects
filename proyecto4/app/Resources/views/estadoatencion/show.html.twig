@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Estadoatencion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idestadoatencion</th>
+                <td>{{ estadoAtencion.idEstadoAtencion }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ estadoAtencion.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('estadoatencion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('estadoatencion_edit', { 'idEstadoAtencion': estadoAtencion.idEstadoAtencion }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

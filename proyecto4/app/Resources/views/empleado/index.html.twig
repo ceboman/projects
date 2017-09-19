@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Empleados list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idempleado</th>
+                <th>Identificacion</th>
+                <th>Nombre1</th>
+                <th>Nombre2</th>
+                <th>Apellido1</th>
+                <th>Apellido2</th>
+                <th>Usuariocreacion</th>
+                <th>Fechacreacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for empleado in empleados %}
+            <tr>
+                <td><a href="{{ path('empleado_show', { 'idEmpleado': empleado.idEmpleado }) }}">{{ empleado.idEmpleado }}</a></td>
+                <td>{{ empleado.identificacion }}</td>
+                <td>{{ empleado.nombre1 }}</td>
+                <td>{{ empleado.nombre2 }}</td>
+                <td>{{ empleado.apellido1 }}</td>
+                <td>{{ empleado.apellido2 }}</td>
+                <td>{{ empleado.usuarioCreacion }}</td>
+                <td>{% if empleado.fechaCreacion %}{{ empleado.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ empleado.usuarioActualizacion }}</td>
+                <td>{% if empleado.fechaActualizacion %}{{ empleado.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('empleado_show', { 'idEmpleado': empleado.idEmpleado }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('empleado_edit', { 'idEmpleado': empleado.idEmpleado }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('empleado_new') }}">Create a new empleado</a>
+        </li>
+    </ul>
+{% endblock %}

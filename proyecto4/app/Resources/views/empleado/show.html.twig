@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Empleado</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idempleado</th>
+                <td>{{ empleado.idEmpleado }}</td>
+            </tr>
+            <tr>
+                <th>Identificacion</th>
+                <td>{{ empleado.identificacion }}</td>
+            </tr>
+            <tr>
+                <th>Nombre1</th>
+                <td>{{ empleado.nombre1 }}</td>
+            </tr>
+            <tr>
+                <th>Nombre2</th>
+                <td>{{ empleado.nombre2 }}</td>
+            </tr>
+            <tr>
+                <th>Apellido1</th>
+                <td>{{ empleado.apellido1 }}</td>
+            </tr>
+            <tr>
+                <th>Apellido2</th>
+                <td>{{ empleado.apellido2 }}</td>
+            </tr>
+            <tr>
+                <th>Usuariocreacion</th>
+                <td>{{ empleado.usuarioCreacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechacreacion</th>
+                <td>{% if empleado.fechaCreacion %}{{ empleado.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuarioactualizacion</th>
+                <td>{{ empleado.usuarioActualizacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechaactualizacion</th>
+                <td>{% if empleado.fechaActualizacion %}{{ empleado.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('empleado_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('empleado_edit', { 'idEmpleado': empleado.idEmpleado }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

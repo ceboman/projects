@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Empresas list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idempresa</th>
+                <th>Nombre</th>
+                <th>Identificacion</th>
+                <th>Usuariocreacion</th>
+                <th>Fechacreacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for empresa in empresas %}
+            <tr>
+                <td><a href="{{ path('empresa_show', { 'idEmpresa': empresa.idEmpresa }) }}">{{ empresa.idEmpresa }}</a></td>
+                <td>{{ empresa.nombre }}</td>
+                <td>{{ empresa.identificacion }}</td>
+                <td>{{ empresa.usuarioCreacion }}</td>
+                <td>{% if empresa.fechaCreacion %}{{ empresa.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ empresa.usuarioActualizacion }}</td>
+                <td>{% if empresa.fechaActualizacion %}{{ empresa.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('empresa_show', { 'idEmpresa': empresa.idEmpresa }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('empresa_edit', { 'idEmpresa': empresa.idEmpresa }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('empresa_new') }}">Create a new empresa</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Clientecontacto</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idclientecontacto</th>
+                <td>{{ clienteContacto.idClienteContacto }}</td>
+            </tr>
+            <tr>
+                <th>Usuariocreacion</th>
+                <td>{{ clienteContacto.usuarioCreacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechacreacion</th>
+                <td>{% if clienteContacto.fechaCreacion %}{{ clienteContacto.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuarioactualizacion</th>
+                <td>{{ clienteContacto.usuarioActualizacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechaactualizacion</th>
+                <td>{% if clienteContacto.fechaActualizacion %}{{ clienteContacto.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientecontacto_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clientecontacto_edit', { 'idClienteContacto': clienteContacto.idClienteContacto }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

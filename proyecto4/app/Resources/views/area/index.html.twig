@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Areas list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idarea</th>
+                <th>Nombre</th>
+                <th>Usuariocreacion</th>
+                <th>Fechacreacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for area in areas %}
+            <tr>
+                <td><a href="{{ path('area_show', { 'idArea': area.idArea }) }}">{{ area.idArea }}</a></td>
+                <td>{{ area.nombre }}</td>
+                <td>{{ area.usuarioCreacion }}</td>
+                <td>{% if area.fechaCreacion %}{{ area.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ area.usuarioActualizacion }}</td>
+                <td>{% if area.fechaActualizacion %}{{ area.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('area_show', { 'idArea': area.idArea }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('area_edit', { 'idArea': area.idArea }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('area_new') }}">Create a new area</a>
+        </li>
+    </ul>
+{% endblock %}

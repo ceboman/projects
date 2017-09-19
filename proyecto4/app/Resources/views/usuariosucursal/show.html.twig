@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Usuariosucursal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idusuariosucursal</th>
+                <td>{{ usuarioSucursal.idUsuarioSucursal }}</td>
+            </tr>
+            <tr>
+                <th>Usuariocreacion</th>
+                <td>{{ usuarioSucursal.usuarioCreacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechacreacion</th>
+                <td>{% if usuarioSucursal.fechaCreacion %}{{ usuarioSucursal.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuarioactualizacion</th>
+                <td>{{ usuarioSucursal.usuarioActualizacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechaactualizacion</th>
+                <td>{% if usuarioSucursal.fechaActualizacion %}{{ usuarioSucursal.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('usuariosucursal_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('usuariosucursal_edit', { 'idUsuarioSucursal': usuarioSucursal.idUsuarioSucursal }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

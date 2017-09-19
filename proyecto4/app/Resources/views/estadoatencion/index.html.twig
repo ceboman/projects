@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Estadoatencions list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idestadoatencion</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for estadoAtencion in estadoAtencions %}
+            <tr>
+                <td><a href="{{ path('estadoatencion_show', { 'idEstadoAtencion': estadoAtencion.idEstadoAtencion }) }}">{{ estadoAtencion.idEstadoAtencion }}</a></td>
+                <td>{{ estadoAtencion.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('estadoatencion_show', { 'idEstadoAtencion': estadoAtencion.idEstadoAtencion }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('estadoatencion_edit', { 'idEstadoAtencion': estadoAtencion.idEstadoAtencion }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('estadoatencion_new') }}">Create a new estadoAtencion</a>
+        </li>
+    </ul>
+{% endblock %}

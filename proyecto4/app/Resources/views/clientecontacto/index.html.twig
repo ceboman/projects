@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Clientecontactos list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idclientecontacto</th>
+                <th>Usuariocreacion</th>
+                <th>Fechacreacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clienteContacto in clienteContactos %}
+            <tr>
+                <td><a href="{{ path('clientecontacto_show', { 'idClienteContacto': clienteContacto.idClienteContacto }) }}">{{ clienteContacto.idClienteContacto }}</a></td>
+                <td>{{ clienteContacto.usuarioCreacion }}</td>
+                <td>{% if clienteContacto.fechaCreacion %}{{ clienteContacto.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ clienteContacto.usuarioActualizacion }}</td>
+                <td>{% if clienteContacto.fechaActualizacion %}{{ clienteContacto.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientecontacto_show', { 'idClienteContacto': clienteContacto.idClienteContacto }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientecontacto_edit', { 'idClienteContacto': clienteContacto.idClienteContacto }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientecontacto_new') }}">Create a new clienteContacto</a>
+        </li>
+    </ul>
+{% endblock %}

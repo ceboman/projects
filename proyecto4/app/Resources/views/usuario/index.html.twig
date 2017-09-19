@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Usuarios list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idusuario</th>
+                <th>Usuario</th>
+                <th>Contrasenia</th>
+                <th>Rol</th>
+                <th>Usuariocreacion</th>
+                <th>Fechacreacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td><a href="{{ path('usuario_show', { 'idUsuario': usuario.idUsuario }) }}">{{ usuario.idUsuario }}</a></td>
+                <td>{{ usuario.usuario }}</td>
+                <td>{{ usuario.contrasenia }}</td>
+                <td>{{ usuario.rol }}</td>
+                <td>{{ usuario.usuarioCreacion }}</td>
+                <td>{% if usuario.fechaCreacion %}{{ usuario.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ usuario.usuarioActualizacion }}</td>
+                <td>{% if usuario.fechaActualizacion %}{{ usuario.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('usuario_show', { 'idUsuario': usuario.idUsuario }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('usuario_edit', { 'idUsuario': usuario.idUsuario }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('usuario_new') }}">Create a new usuario</a>
+        </li>
+    </ul>
+{% endblock %}

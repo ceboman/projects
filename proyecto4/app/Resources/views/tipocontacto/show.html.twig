@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tipocontacto</h1>
+
+    <table calss="table">
+        <tbody>
+            <tr>
+                <th>Idtipocontacto</th>
+                <td>{{ tipoContacto.idTipoContacto }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ tipoContacto.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Usuariocreacion</th>
+                <td>{{ tipoContacto.usuarioCreacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechaactualizacion</th>
+                <td>{% if tipoContacto.fechaActualizacion %}{{ tipoContacto.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuarioactualizacion</th>
+                <td>{{ tipoContacto.usuarioActualizacion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tipocontacto_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('tipocontacto_edit', { 'idTipoContacto': tipoContacto.idTipoContacto }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

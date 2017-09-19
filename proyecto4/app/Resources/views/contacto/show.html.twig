@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Contacto</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idcontacto</th>
+                <td>{{ contacto.idContacto }}</td>
+            </tr>
+            <tr>
+                <th>Longitudvalidacion</th>
+                <td>{{ contacto.longitudValidacion }}</td>
+            </tr>
+            <tr>
+                <th>Digitosvalidacion</th>
+                <td>{{ contacto.digitosValidacion }}</td>
+            </tr>
+            <tr>
+                <th>Usuariocreacion</th>
+                <td>{{ contacto.usuarioCreacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechacreacion</th>
+                <td>{% if contacto.fechaCreacion %}{{ contacto.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuarioactualizacion</th>
+                <td>{{ contacto.usuarioActualizacion }}</td>
+            </tr>
+            <tr>
+                <th>Fechaactualizacion</th>
+                <td>{% if contacto.fechaActualizacion %}{{ contacto.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('contacto_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('contacto_edit', { 'idContacto': contacto.idContacto }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

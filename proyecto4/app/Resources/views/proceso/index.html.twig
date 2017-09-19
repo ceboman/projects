@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Procesos list</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Idproceso</th>
+                <th>Nombre</th>
+                <th>Fechacreacion</th>
+                <th>Usuarioactualizacion</th>
+                <th>Fechaactualizacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for proceso in procesos %}
+            <tr>
+                <td><a href="{{ path('proceso_show', { 'idProceso': proceso.idProceso }) }}">{{ proceso.idProceso }}</a></td>
+                <td>{{ proceso.nombre }}</td>
+                <td>{% if proceso.fechaCreacion %}{{ proceso.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ proceso.usuarioActualizacion }}</td>
+                <td>{% if proceso.fechaActualizacion %}{{ proceso.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('proceso_show', { 'idProceso': proceso.idProceso }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('proceso_edit', { 'idProceso': proceso.idProceso }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('proceso_new') }}">Create a new proceso</a>
+        </li>
+    </ul>
+{% endblock %}
