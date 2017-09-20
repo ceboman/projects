@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista de Roles</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Id rol</th>
+                <th>Descripción</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de creación</th>
+                <th>Usuario de actualización</th>
+                <th>Fecha de actualización</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rol in rols %}
+            <tr>
+                <td><a href="{{ path('rol_show', { 'idRol': rol.idRol }) }}">{{ rol.idRol }}</a></td>
+                <td>{{ rol.descripcion }}</td>
+                <td>{{ rol.usuarioCreacion }}</td>
+                <td>{% if rol.fechaCreacion %}{{ rol.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ rol.usuarioActualizacion }}</td>
+                <td>{% if rol.fechaActualizacion %}{{ rol.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('rol_show', { 'idRol': rol.idRol }) }}">mostrar</a>
+                        </li>
+                        {%  if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('rol_edit', { 'idRol': rol.idRol }) }}">editar</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('rol_new') }}">Create nuevo rol</a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,82 @@
+IdROl varchar(100) check (substring(IdROl1, 5) = 'ROLE_'),
+Nombre varchar(50) unique
+
+data NombreSistema
+etiqueta Nombre
+
+
+
+campos calculados 
+
+///funcion en mysql para concatenar un campo ingresado
+create table conca (id int AUTO_INCREMENT PRIMARY KEY,
+                   nombre varchar(100) not null,
+                   nombresis varchar(100) as(CONCAT('ROLE_'+''+ nombre)));
+
+DELIMITER //
+CREATE TRIGGER cosasrol BEFORE INSERT ON conca
+FOR EACH ROW 
+BEGIN
+  SET NEW.rol = CONCAT('ROLE_', rol);
+END;//
+DELIMITER ;
+
+
+#1054 - La columna 'rol' en field list es desconocida
+
+
+
+///usuario
+
+
+/**
+     * @return \Rol
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
+
+    /**
+     * @param \Rol $idRol
+     */
+    public function setIdRol($idRol)
+    {
+        $this->idRol = $idRol;
+    }
+
+
+
+    public function __toString()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set roles
+     * @param string $roles
+     *
+     * @return Usuario
+     */
+    public function setRoles($rol)
+    {
+        $this->rol =$rol;
+
+        //allows for chaining
+        return $this;
+    }
+
+    public function getRoles()
+    {
+        //return $this->rol;
+        return array($this->rol);
+    }
+
+    public function getSalt()
+    {
+        // The bcrypt algorithm doesn't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    public function eraseCredentials() {}

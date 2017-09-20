@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista de Contactos</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Id contacto</th>
+                <th>Longitud validación</th>
+                <th>Digitos validación</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de creación</th>
+                <th>Usuario de actualización</th>
+                <th>Fecha de actualización</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contacto in contactos %}
+            <tr>
+                <td><a href="{{ path('contacto_show', { 'idContacto': contacto.idContacto }) }}">{{ contacto.idContacto }}</a></td>
+                <td>{{ contacto.longitudValidacion }}</td>
+                <td>{{ contacto.digitosValidacion }}</td>
+                <td>{{ contacto.usuarioCreacion }}</td>
+                <td>{% if contacto.fechaCreacion %}{{ contacto.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ contacto.usuarioActualizacion }}</td>
+                <td>{% if contacto.fechaActualizacion %}{{ contacto.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('contacto_show', { 'idContacto': contacto.idContacto }) }}">mostrar</a>
+                        </li>
+                        {%  if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('contacto_edit', { 'idContacto': contacto.idContacto }) }}">editar</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('contacto_new') }}">Create nuevo contacto</a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}

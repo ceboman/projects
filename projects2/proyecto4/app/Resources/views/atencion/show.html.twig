@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Atención</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id atencion</th>
+                <td>{{ atencion.idAtencion }}</td>
+            </tr>
+            <tr>
+                <th>Secuencial</th>
+                <td>{{ atencion.secuencial }}</td>
+            </tr>
+            <tr>
+                <th>Usuario de creación</th>
+                <td>{{ atencion.usuarioCreacion }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de creación</th>
+                <td>{% if atencion.fechaCreacion %}{{ atencion.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuario de actualización</th>
+                <td>{{ atencion.usuarioActualizacion }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de actualización</th>
+                <td>{% if atencion.fechaActualizacion %}{{ atencion.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('atencion_index') }}">Regresar</a>
+        </li>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('atencion_edit', { 'idAtencion': atencion.idAtencion }) }}">Editar</a>
+        </li>
+        {% endif %}
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
