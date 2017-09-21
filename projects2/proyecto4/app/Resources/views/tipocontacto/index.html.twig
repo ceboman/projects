@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista Tipo Contacto</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Id tipocontacto</th>
+                <th>Nombre</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de actualización</th>
+                <th>Usuario de actualización</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipoContacto in tipoContactos %}
+            <tr>
+                <td><a href="{{ path('tipocontacto_show', { 'idTipoContacto': tipoContacto.idTipoContacto }) }}">{{ tipoContacto.idTipoContacto }}</a></td>
+                <td>{{ tipoContacto.nombre }}</td>
+                <td>{{ tipoContacto.usuarioCreacion }}</td>
+                <td>{% if tipoContacto.fechaActualizacion %}{{ tipoContacto.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ tipoContacto.usuarioActualizacion }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('tipocontacto_show', { 'idTipoContacto': tipoContacto.idTipoContacto }) }}">mostrar</a>
+                        </li>
+                        {%  if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('tipocontacto_edit', { 'idTipoContacto': tipoContacto.idTipoContacto }) }}">editar</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('tipocontacto_new') }}">Create nuevo tipo contacto</a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista de Detalle de Atención</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Id atenciondetalle</th>
+                <th>Descripcion</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de creación</th>
+                <th>Usuario de actualización</th>
+                <th>Fecha de actualización</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for atencionDetalle in atencionDetalles %}
+            <tr>
+                <td><a href="{{ path('atenciondetalle_show', { 'idAtencionDetalle': atencionDetalle.idAtencionDetalle }) }}">{{ atencionDetalle.idAtencionDetalle }}</a></td>
+                <td>{{ atencionDetalle.descripcion }}</td>
+                <td>{{ atencionDetalle.usuarioCreacion }}</td>
+                <td>{% if atencionDetalle.fechaCreacion %}{{ atencionDetalle.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ atencionDetalle.usuarioActualizacion }}</td>
+                <td>{% if atencionDetalle.fechaActualizacion %}{{ atencionDetalle.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('atenciondetalle_show', { 'idAtencionDetalle': atencionDetalle.idAtencionDetalle }) }}">mostrar</a>
+                        </li>
+                        {%  if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('atenciondetalle_edit', { 'idAtencionDetalle': atencionDetalle.idAtencionDetalle }) }}">editar</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('atenciondetalle_new') }}">Create nuevo Detalle de Atención</a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
