@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <body>
+    <p> <b> Bienvenido {{ app.session.get('nombre') }}</b>, <i> esta en la pagina principa de Administracion General </i></p>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Roles</th>
+            <td> <a href="/users/rol">Ver lista de roles</a> </td>
+        </tr>
+        <tr>
+            <th>Usuarios</th>
+            <td> <a href="/users/usuario">Ver lista de usuarios</a> </td>
+        </tr>
+        <tr>
+            <th>Empleados</th>
+            <td> <a href="/users/empleado">Ver lista de empleados</a> </td>
+        </tr>
+        <tr>
+            <th>Empresas</th>
+            <td> <a href="/users/empresa">Ver lista de empresas</a> </td>
+        </tr>
+        <tr>
+            <th>Sucursales</th>
+            <td> <a href="/users/sucursal">Ver lista de sucursales</a> </td>
+        </tr>
+        <tr>
+            <th>Usuario Sucursal</th>
+            <td> <a href="/users/usuariosucursal">Ver lista de usuarios en sucursales</a> </td>
+        </tr>
+        <tr>
+            <th>Tipo Contacto</th>
+            <td> <a href="/users/tipocontacto">Ver lista de tipo de contactos</a> </td>
+        </tr>
+        <tr>
+            <th>Contactos</th>
+            <td> <a href="/users/contacto">Ver lista de contaactos</a> </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td> </td>
+        </tr>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <tr>
+            <th>Area de Gestion</th>
+            <td> <a href="/gestion">Ir al area de gestion</a> </td>
+        </tr>
+        {% endif %}
+
+
+        </tbody>
+    </table>
+    </body>
+{% endblock %}

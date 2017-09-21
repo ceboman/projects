@@ -1,0 +1,52 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    encoders:
+        AdministracionBundle\Entity\Usuario: bcrypt
+        Symfony\Component\Security\Core\User\User: plaintext
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USUARIO, ROLE_Prueba]
+        ROLE_USUARIO: ROLE_Prueba
+        ROLE_MADAFACA: ROLE_Prueba
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        in_memory:
+            memory: ~
+
+        my_db_provider:
+                    entity:
+                        class: AdministracionBundle:Usuario
+                        property: usuario
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        usuarios:
+            pattern: ^/
+            http_basic: ~
+            anonymous: ~
+            provider: my_db_provider
+            form_login:
+                login_path: /users/login
+                check_path: /users/login
+            logout:
+                path: /users/logout
+                target: /users
+
+        main:
+            anonymous: ~
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~
+    access_control:
+        - { path: ^/users/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/users, roles: ROLE_USUARIO }
+        - { path: ^/users, roles: ROLE_Prueba }
+        - { path: ^/gestion, roles: ROLE_ADMIN }

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sucursal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id sucursal</th>
+                <td>{{ sucursal.idSucursal }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ sucursal.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ sucursal.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Usuario de creación</th>
+                <td>{{ sucursal.usuarioCreacion }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de creación</th>
+                <td>{% if sucursal.fechaCreacion %}{{ sucursal.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuario de actualización</th>
+                <td>{{ sucursal.usuarioActualizacion }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de actualización</th>
+                <td>{% if sucursal.fechaActualizacion %}{{ sucursal.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sucursal_index') }}">Regresar</a>
+        </li>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('sucursal_edit', { 'idSucursal': sucursal.idSucursal }) }}">Editar</a>
+        </li>
+        {% endif %}
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}

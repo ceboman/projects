@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <body>
+    <p> <b> Bienvenido {{ app.session.get('nombre') }}</b>, <i> esta en la pagina principal de Gestion</i></p>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Area</th>
+            <td> <a href="/gestion/area">Ver lista de areas</a> </td>
+        </tr>
+        <tr>
+            <th>Proceso</th>
+            <td> <a href="//gestion/proceso">Ver lista de procesos</a> </td>
+        </tr>
+        <tr>
+            <th>Cliente</th>
+            <td> <a href="/gestion/cliente">Ver lista de cleintes</a> </td>
+        </tr>
+        <tr>
+            <th>Contacto Cliente</th>
+            <td> <a href="/gestion/clientecontacto">Ver lista de contactos de clientes</a> </td>
+        </tr>
+        <tr>
+            <th>Estado Atencion</th>
+            <td> <a href="/gestion/estadoatencion">Ver lista de estado de atenciones</a> </td>
+        </tr>
+        <tr>
+            <th>Atencion</th>
+            <td> <a href="/gestion/atencion">Ver lista de atenciones</a> </td>
+        </tr>
+        <tr>
+            <th>Atencion Detalle</th>
+            <td> <a href="/gestion/atenciondetalle">Ver lista de detalle de atenciones</a> </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+    </body>
+{% endblock %}

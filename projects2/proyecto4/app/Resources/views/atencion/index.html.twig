@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista Atenciones</h1>
+
+    <input type="text" id="buscar_item" onkeyup="buscar()" placeholder="Buscar.." title="Ingrese para buscar">
+
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>Id atencion</th>
+                <th>Secuencial</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de creación</th>
+                <th>Usuario de actualización</th>
+                <th>Fecha de actualización</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for atencion in atencions %}
+            <tr>
+                <td><a href="{{ path('atencion_show', { 'idAtencion': atencion.idAtencion }) }}">{{ atencion.idAtencion }}</a></td>
+                <td>{{ atencion.secuencial }}</td>
+                <td>{{ atencion.usuarioCreacion }}</td>
+                <td>{% if atencion.fechaCreacion %}{{ atencion.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ atencion.usuarioActualizacion }}</td>
+                <td>{% if atencion.fechaActualizacion %}{{ atencion.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('atencion_show', { 'idAtencion': atencion.idAtencion }) }}">mostrar</a>
+                        </li>
+                        {%  if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('atencion_edit', { 'idAtencion': atencion.idAtencion }) }}">editar</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('atencion_new') }}">Create nueva atención</a>
+        </li>
+        {% endif %}
+        {%  if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="/gestion/archivo/new">Subir archivo</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="/gestion/archivo">Lista de archivos</a>
+        </li>
+    </ul>
+{% endblock %}
